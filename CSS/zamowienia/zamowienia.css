@@ -1,0 +1,71 @@
+body {
+  background: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('./zdj.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+*{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.textE1{
+  color:#009900;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: -10px;
+  margin-top: -3%;
+}
+
+.background{
+  padding: 3%;
+  width: auto;
+  height: auto;
+  min-height: 450px;
+  border-radius: 1px;
+  background: #fff;
+  opacity: 0.8;
+}
+.links {
+  display: table;
+  width: 82%;  
+  box-sizing: border-box;
+  border-top: 1px solid green;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.links2 {
+  display: table;
+  width: 82%;  
+  box-sizing: border-box;
+  border-top: 1.5px solid orangered;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.detail3{
+  font-size: 22px;
+  font-weight: bold;
+  color: green;
+}
+.detail{
+  font-weight: bold;
+  font-size: 18px;
+  color: #006600;
+}
+.gutgut1{
+  color: orangered;
+  font-size: 20px;
+  font-weight: bold;
+}
+.gutgut2{
+  color: orangered;
+  font-size: 18px;
+  font-weight: bold;
+}
+.col-8{
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}

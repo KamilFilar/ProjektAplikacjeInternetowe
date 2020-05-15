@@ -1,0 +1,75 @@
+body {
+    background: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('./zdj.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+*{
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  }
+
+.controll {
+    width: 120%;
+}
+
+span.name {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+p.detail{
+    color:#006600;
+    font-weight:bold;
+}
+
+.TextHerbs {
+    text-align: left;
+    font-size: 18px;
+    color: black;
+}
+.nagłówek{
+    color:#006600;
+    font-weight:bold;
+    font-size: 35px;
+}
+.links {
+    display: table;
+    width: 100%;  
+    box-sizing: border-box;
+    border-top: 1px solid #c0c0c0;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.carousel-indicators li {     
+    border-color: #006600; 
+  } 
+  
+  .carousel-indicators li.active {     
+    background-color: #006600; 
+  }
+  .carousel-control-prev {   
+    background-color: green;
+    border-radius: 80%;
+    width: 50px;
+    height: 50px;
+    padding-right: 4px;
+    margin-top: 7px;
+  }
+  .carousel-control-next {   
+    background-color: green;
+    border-radius: 80%;
+    width: 50px;
+    height: 50px;
+    margin-left: 4px;
+    margin-top: 7px;
+  }
+.background{
+    padding: 3%;
+    width: auto;
+    height: auto;
+    border-radius: 1px;
+    background: #fff;
+    opacity: 0.8;
+    margin-bottom: 10%;
+}

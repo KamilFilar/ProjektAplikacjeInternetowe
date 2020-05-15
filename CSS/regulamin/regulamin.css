@@ -1,0 +1,91 @@
+
+body {
+  background: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('./zdj.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+*{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.background{
+  width: auto;
+  height: auto;
+  min-width: 400px;
+  min-height: 400px;
+  border-radius: 1px;
+  background: #fff;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  padding: 4%;
+}
+
+input[type=button]  {
+border: none;
+background: #006600;
+color: white;
+font-weight: bold;  
+transition: 0.2s;
+margin-left: 15%;
+margin-top: -2.5%;
+border-radius: 12px;
+width: 70%;
+}
+
+input[type=button]:hover {
+background: orangered;
+
+}
+input {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 14px 12px;
+  font-size: 20px; 
+}
+
+.textE1{
+  color:#006600;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 13px;
+}
+.gutgut{
+  font-weight: 900; 
+   color: #006600;
+   font-size: 21.5px;
+   margin-bottom: -25px;
+ }
+ .links1 {
+  display: table;
+  width: 85%;  
+  box-sizing: border-box;
+  border-top: 1px solid #c0c0c0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5.5%;
+  margin-top: -3.5%;
+}
+.links {
+  display: table;
+  width: 85%;  
+  box-sizing: border-box;
+  border-top: 1px solid #c0c0c0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5.5%;
+}
+
+p.detail { 
+  color:#4C4C4C;
+  font-weight:bold;
+  font-size: 25px;
+  text-align: center;
+}
+.left{
+  float: left;
+  font-size: 18px;
+}

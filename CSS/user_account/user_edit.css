@@ -1,0 +1,107 @@
+body {
+  background: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('./zdj.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+*{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.error{
+  color: red;
+  font-size: 25px;
+  margin-bottom: 5%;
+  margin-top: -5%;
+  font-weight: bold;
+}
+.background{
+  width: auto;
+  height: auto;
+  min-width: 400px;
+  min-height: 400px;
+  border-radius: 1px;
+  background: #fff;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  padding: 4%;
+}
+
+label{
+  text-align: right;
+  clear: both;
+  float:left;
+  margin-right:15px;
+  font-size: 23px;
+  font-weight: bold;
+  margin-top: -5%;
+}
+
+input[type=text],
+input[type=password]{
+  border: 2px solid #009900;
+  width: 100%;
+  height: 45px;
+  font-weight: bold;
+}
+
+input[type=button],
+input[type=submit]  {
+  border: none;
+  background: #006600;
+  color: white;
+  font-weight: bold;  
+  transition: 0.2s;
+  margin-left: 15%;
+  margin-top: -2.5%;
+  border-radius: 12px;
+  width: 70%;
+  }
+  
+  input[type=button]:hover {
+  background: orangered;
+  }
+  input[type=submit]:hover {
+  background: #009900;
+}
+  input {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 14px 12px;
+    font-size: 20px; 
+  }
+
+input[type=submit]:hover{
+  background: #009900;  
+}
+input[type=button]:hover{
+  background: orangered;
+}
+
+p.detail { 
+  color:#4C4C4C;
+  font-weight:bold;
+}
+span.name { 
+  color:#006600;
+  font-weight:bold;
+}
+
+.links {
+  display: table;
+  width: 80%;  
+  box-sizing: border-box;
+  border-top: 1px solid #c0c0c0;
+  margin-left: 10%;
+  margin-bottom: 8%;
+}
+
+
+.textE1{
+  color:#006600;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}

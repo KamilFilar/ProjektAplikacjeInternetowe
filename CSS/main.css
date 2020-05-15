@@ -1,0 +1,125 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: calc(100% - 171.36px);
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    background-image: linear-gradient(to bottom right, #003300, #66CC00);
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-bottom: 1px solid #003300;
+}
+
+.logo {
+    position: fixed;
+    top: 0;
+    left: 3em;
+    display: inline;
+    z-index: 9999;
+}
+
+.navbar li a,
+.navbar {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+    color: #006600 !important;
+    background-color: #fff !important;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+@media only screen and (max-width: 800px) {
+    .navbar-nav {
+        padding-top: 36px;
+    }
+}
+
+
+/* MAIN */
+
+.main {
+    padding-top: 120px;
+    min-height: 100%;
+}
+a:link{
+    text-decoration: none;
+}
+
+
+
+/* Footer */
+
+.footer {
+    width: 100%;
+    height: auto;
+    background-image: linear-gradient(to bottom right, black, #003300);
+}
+
+.footer .col {
+    width: 190px;
+    height: auto;
+    float: left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0px 20px 20px 20px;
+}
+
+.footer .col h1 {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 17px;
+    padding: 20px 0px 5px 0px;
+    color: orange;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.250em;
+    font-weight: bold;
+}
+
+.footer .col ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .col ul li {
+    color: #999999;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: bold;
+    padding: 5px 0px 5px 0px;
+    cursor: pointer;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+}
+
+.social ul li {
+    display: inline-block;
+    padding-right: 5px !important;
+}
+
+.footer .col ul li:hover {
+    color: lime;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+}

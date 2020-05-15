@@ -1,0 +1,137 @@
+body {
+    background: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('./zdj.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+* {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.errorK,
+.errorB{
+    color: red;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+.textE1 {
+    color: #009900;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: -10px;
+    margin-top: -3%;
+}
+
+
+.background {
+    padding: 3%;
+    width: auto;
+    height: auto;
+    min-height: 450px;
+    border-radius: 1px;
+    background: #fff;
+    opacity: 0.8;
+}
+
+.links {
+    display: table;
+    width: 85%;
+    box-sizing: border-box;
+    border-top: 1px solid #c0c0c0;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p.detail {
+    color: #4C4C4C;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+p.detail2 {
+    color: #4C4C4C;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+p.detail3 {
+    color: #4C4C4C;
+    font-weight: bold;
+    font-size: 20px;
+    float: right;
+}
+
+b.name {
+    color: #006600;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+b.name2 {
+    color: orangered;
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+}
+
+b.name5 {
+    color: #009900;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 3px;
+}
+
+b.name4 {
+    color: #009900;
+    font-weight: bold;
+    font-size: 25px;
+    float: center;
+    margin-top: 1.8%;
+    margin-left: 7%;
+}
+
+input[type=submit] {
+    border: none;
+    background: #006600;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.2s;
+    border-radius: 12px;
+    width: auto;
+    min-width: 160px;
+    min-height: 45px;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+}
+
+
+input[type=button] {
+    border: none;
+    background: #006600;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.2s;
+    border-radius: 12px;
+    min-width: 160px;
+    width: auto;
+    min-height: 45px;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    
+}
+
+input[type=button]:hover,
+input[type=submit]:hover {
+    background-color: orangered;
+}
