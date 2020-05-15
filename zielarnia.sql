@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 12 Maj 2020, 12:53
+-- Czas generowania: 15 Maj 2020, 18:58
 -- Wersja serwera: 10.4.11-MariaDB
 -- Wersja PHP: 7.4.3
 
@@ -48,7 +48,10 @@ INSERT INTO `adres` (`ID_Adres`, `Miejscowosc`, `Ulica`, `Kod_Pocztowy`, `Nr_Dom
 (4, 'Rzeszów', 'Kopisto', '32-542', '673', '27'),
 (5, 'Przeworsk', 'Jagiellońska', '37-200', '14', '4'),
 (6, 'Przeworsk', 'Wodna', '37-500', '13', '2'),
-(7, 'Przeworsk', 'Wodna', '32-542', '543b', '0');
+(7, 'Przeworsk', 'Wodna', '32-542', '543b', '0'),
+(8, 'Kraków', 'Polna', '00-457', '15', '15'),
+(9, 'Warszawa', 'Polna', '32-142', '543b', '0'),
+(10, 'Poznań', 'Jagiellońska', '37-200', '543b', '2');
 
 -- --------------------------------------------------------
 
@@ -98,7 +101,10 @@ INSERT INTO `konto` (`ID_Konta`, `ID_Adres`, `Imie`, `Nazwisko`, `Mail`, `Numer_
 (4, 4, 'Janusz', 'Czopek', 'CycuKoks@gmail.com', 999222114),
 (5, 5, 'Paulina', 'Bomba', 'Bebebe418@gmail.com', 722247918),
 (6, 6, 'Adam', 'Hipolit', 'ja@op.pl', 333444555),
-(7, 7, 'Kamil', 'Filar', 'FilarKamil05@gmail.com', 999222113);
+(7, 7, 'Kamil', 'Filar', 'FilarKamil05@gmail.com', 999222113),
+(8, 8, 'Xi', 'Pi', 'test1@gmail.com', 999999000),
+(9, 9, 'Janusz', 'Curzytek', 'CycuuKoks@gmail.com', 999222111),
+(10, 10, 'Bartek', 'Curzytek', 's2zaka9991@o2.pl', 999222000);
 
 -- --------------------------------------------------------
 
@@ -123,7 +129,10 @@ INSERT INTO `konto_logowanie` (`ID_Konta`, `UserLogin`, `Haslo`) VALUES
 (4, 'Cycu', '$2y$10$vMIN0Y0pXciwJBaActHcoOvWBeCp5nEgdbHINBtZQ4BT72FRhllXG'),
 (5, 'Paulina', '$2y$10$Ql6bSLjSzZLj0Llq17joLOY5SASRQFc9UfBOlVmIHlMU74KPocE/a'),
 (6, 'adam', '$2y$10$Njh13lEEUTailJKyq2VQIOa3bpT5.V7fvrfxoAWEtBXoWIlITnXVi'),
-(7, 'Kamil2', '$2y$10$EMmdl4uMSIHUZ.zpbbuqxOft1A4ImGJgxwtoA2i9PogVaPUUuwcZe');
+(7, 'Kamil2', '$2y$10$EMmdl4uMSIHUZ.zpbbuqxOft1A4ImGJgxwtoA2i9PogVaPUUuwcZe'),
+(8, 'test1', '$2y$10$iVRlDEMALNVRMau4kLtlhOxaECr8UBqKhpdiYr7HV11xMHdjVxe4e'),
+(9, 'szaka12', '$2y$10$fB7VsxAH/kfzEjxMSY/K4OuLA.o1dw6Tt/8gFZsT1FBTOj6AE9gu6'),
+(10, 'szaka27', '$2y$10$C4ghWdMp4KMT3D7Hc5W0xOCpGr6b.HcEGvgMYKv/O2MbApNIVXh/a');
 
 -- --------------------------------------------------------
 
@@ -195,7 +204,12 @@ INSERT INTO `zamowienia` (`ID_Zamowienia`, `ID_Konta`, `ID_Dostawcy`, `FullCost`
 (71, 6, 2, 28.99, '2020-05-11'),
 (72, 6, 3, 105.36, '2020-05-11'),
 (73, 6, 2, 21.5, '2020-05-12'),
-(74, 7, 2, 25, '2020-05-12');
+(74, 7, 2, 25, '2020-05-12'),
+(75, 8, 3, 39.52, '2020-05-14'),
+(76, 8, 2, 19.01, '2020-05-14'),
+(77, 8, 1, 35.78, '2020-05-14'),
+(78, 8, 2, 30.49, '2020-05-15'),
+(79, 8, 1, 135.53, '2020-05-15');
 
 -- --------------------------------------------------------
 
@@ -280,7 +294,21 @@ INSERT INTO `zamowienia_produkty` (`id_zamowienia`, `id_produktu`, `ilosc`) VALU
 (73, 3, 1),
 (73, 4, 1),
 (74, 6, 1),
-(74, 2, 1);
+(74, 2, 1),
+(75, 3, 1),
+(75, 2, 1),
+(75, 1, 1),
+(76, 2, 1),
+(77, 3, 1),
+(77, 7, 1),
+(77, 8, 1),
+(77, 9, 1),
+(78, 6, 1),
+(78, 1, 1),
+(78, 5, 1),
+(79, 8, 25),
+(79, 12, 3),
+(79, 2, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -343,13 +371,13 @@ ALTER TABLE `dostawcy`
 -- AUTO_INCREMENT dla tabeli `konto`
 --
 ALTER TABLE `konto`
-  MODIFY `ID_Adres` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_Adres` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `konto_logowanie`
 --
 ALTER TABLE `konto_logowanie`
-  MODIFY `ID_Konta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_Konta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`
@@ -361,7 +389,7 @@ ALTER TABLE `produkty`
 -- AUTO_INCREMENT dla tabeli `zamowienia`
 --
 ALTER TABLE `zamowienia`
-  MODIFY `ID_Zamowienia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `ID_Zamowienia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- Ograniczenia dla zrzutów tabel
