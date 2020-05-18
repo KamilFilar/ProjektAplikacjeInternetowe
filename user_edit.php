@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['logged'])) {
     header('Location: index.php');
@@ -57,7 +58,7 @@ if (!empty($_POST['Username'])) {
     $All_Ok = true;
     $UserName = mb_strtolower($_POST['Username']);
     $ArrName = str_split($UserName);
-    for ($i = 2; $i < count($ArrName); $i++) {
+    for ($i = 1; $i < count($ArrName); $i++) {
         if (($ArrName[$i - 2] == $ArrName[$i - 1]) && ($ArrName[$i - 1] == $ArrName[$i])) {
             $All_Ok = false;
             $_SESSION['error_Username'] = "Niepoprawne imię!";
@@ -71,10 +72,6 @@ if (!empty($_POST['Username'])) {
     if (strpbrk($UserName, '1234567890')) {
         $All_Ok = false;
         $_SESSION['error_Username'] = "Imię nie może zawierać cyfr!";
-    }
-    if (strlen($UserName) < 2) {
-        $All_Ok = false;
-        $_SESSION['error_Username'] = "Podano za krótkie imię!";
     }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -106,7 +103,7 @@ if (!empty($_POST['Usersurname'])) {
     $All_Ok = true;
     $UsersurName = mb_strtolower($_POST['Usersurname']);
     $ArrsurName = str_split($UsersurName);
-    for ($i = 2; $i < count($ArrsurName); $i++) {
+    for ($i = 1; $i < count($ArrsurName); $i++) {
         if (($ArrsurName[$i - 2] == $ArrsurName[$i - 1]) && ($ArrsurName[$i - 1] == $ArrsurName[$i])) {
             $All_Ok = false;
             $_SESSION['error_Usersurname'] = "Niepoprawne nazwisko!";
@@ -123,11 +120,6 @@ if (!empty($_POST['Usersurname'])) {
         $All_Ok = false;
         $_SESSION['error_Usersurname'] = "Nazwisko nie może zawierać cyfr!";
     }
-    if (strlen($UsersurName) < 2) {
-        $All_Ok = false;
-        $_SESSION['error_Usersurname'] = "Podano za krótkie nazwisko!";
-    }
-
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -160,21 +152,6 @@ if (!empty($_POST['PhonNumber'])) {
     if (strlen($PhonNumber) != 9) {
         $All_Ok = false;
         $_SESSION['error_PhonNumber'] = "Podaj poprawny dziewięcio cyfrowy numer telefonu!";
-    }
-    if (!is_numeric($PhonNumber)) {
-        $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Numer telefonu może składać się tylko z cyfr! Poprawny format to: XXXXXXXXX";
-    }
-    if (
-        $PhonNumber == "000000000" || $PhonNumber == "111111111" || $PhonNumber == "222222222" || $PhonNumber == "333333333" || $PhonNumber == "444444444"
-        || $PhonNumber == "555555555" || $PhonNumber == "666666666" || $PhonNumber == "777777777" || $PhonNumber == "888888888" || $PhonNumber == "999999999"
-    ) {
-        $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Poadno nieprawidłowy numer telefonu!";
-    }
-    if (substr($PhonNumber, 0, 1) == 0) {
-        $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Poadno nieprawidłowy numer telefonu!";
     }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -288,10 +265,6 @@ if (!empty($_POST['location'])) {
         $All_Ok = false;
         $_SESSION['error_location'] = "Nazwa miejscowości nie może zawierać cyfr!";
     }
-    if (strlen($Userlocation) < 4) {
-        $All_Ok = false;
-        $_SESSION['error_location'] = "Podano za krótką nazwę miejscowości!";
-    }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -338,10 +311,6 @@ if (!empty($_POST['street'])) {
         $All_Ok = false;
         $_SESSION['error_street'] = "Nazwa ulicy nie może zawierać cyfr!";
     }
-    if (strlen($Userstreet) < 4) {
-        $All_Ok = false;
-        $_SESSION['error_street'] = "Podano za krótką nazwę ulicy!";
-    }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -376,17 +345,6 @@ if (!empty($_POST['UserCode'])) {
         $All_Ok = false;
         $_SESSION['error_kod_pocztowy'] = "Poprawny format kodu pocztowego to: XX-XXX";
     }
-    if (
-        $UserCode == "00-000" || $UserCode == "11-111" || $UserCode == "22-222" || $UserCode == "44-444" || $UserCode == "66-666" ||
-        $UserCode == "77-777" || $UserCode == "88-888" || $UserCode == "99-999"
-    ) {
-        $All_Ok = false;
-        $_SESSION['error_kod_pocztowy'] = "Podano niepoprawny kod pocztowy!";
-    }
-    if (strlen($UserCode) != 6) {
-        $All_Ok = false;
-        $_SESSION['error_kod_pocztowy'] = "Poprawny format kodu pocztowego to: XX-XXX";
-    }
 
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -418,11 +376,11 @@ if (!empty($_POST['NumberD'])) {
     $All_Ok = true;
     $NumberD = $_POST['NumberD'];
     $NumberD_string = strval($NumberD);
-    // $New_ND_5_char = substr($NumberD_string,-1);
-    // $New_ND_4_char = substr($NumberD_string,0,1);
-    // $New_ND_3_char = substr($NumberD_string,0,2);
-    // $New_ND_2_char = substr($NumberD_string,0,3);
-    // $New_ND_1_char = substr($NumberD_string,0,4);
+    $New_ND_5_char = substr($NumberD_string, -1);
+    $New_ND_4_char = substr($NumberD_string, 0, 1);
+    $New_ND_3_char = substr($NumberD_string, 0, 2);
+    $New_ND_2_char = substr($NumberD_string, 0, 3);
+    $New_ND_1_char = substr($NumberD_string, 0, 4);
 
     if (strlen($_POST['NumberD']) == 1) {
         if (!is_numeric(substr($NumberD_string, -1))) {
@@ -492,10 +450,6 @@ if (!empty($_POST['NumberD'])) {
         $All_Ok = false;
         $_SESSION['error_NumberD'] = "Numer domu musi być większy od 0!";
     }
-    if ($_POST['NumberD'] == 0) {
-        $All_Ok = false;
-        $_SESSION['error_NumberD'] = "Numer domu nie może być zerem!";
-    }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -559,10 +513,6 @@ if ((!empty($_POST['NumberL']))) {
         $All_Ok = false;
         $_SESSION['error_NumberL'] = "Numer lokalu musi być większy od zera!";
     }
-    if ($NumberL == 0) {
-        $All_Ok = false;
-        $_SESSION['error_NumberL'] = "Numer lokalu nie może być zerem!";
-    }
 
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -589,55 +539,6 @@ if ((!empty($_POST['NumberL']))) {
         echo '<br />Informacja developerska' . $e;
     }
 }
-
-//Check login
-if (!empty($_POST['login'])) {
-    $All_Ok = true;
-    $nick = $_POST['login'];
-    if ((strlen($nick) < 3) || (strlen($nick) > 20)) {
-        $All_Ok = false;
-        $_SESSION['error_login'] = "Login musi posiadać od 3 do 20 znaków!";
-    }
-    if (ctype_alnum($nick) == false) {
-        $All_Ok = false;
-        $_SESSION['error_login'] = "Nick może składać się tylko z liter i cyfr (bez polskich znaków) i być pojedynczym wyrazem!";
-    }
-    require_once "connect.php";
-    mysqli_report(MYSQLI_REPORT_STRICT);
-    try {
-        $connection = new mysqli($host, $db_user, $db_password, $db_name);
-        if ($connection->connect_errno != 0) {
-            throw new Exception(mysqli_connect_errno());
-        }
-        //Check login (when exist)
-        $result = $connection->query("SELECT ID_Konta FROM konto_logowanie WHERE UserLogin='$nick'");
-        if (!$result) {
-            throw new Exception($connection->error);
-        }
-        $Number_of_nick = $result->num_rows;
-        if ($Number_of_nick > 0) {
-            $All_Ok = false;
-            $_SESSION['error_login'] = "Podany login już istnieje!";
-        } else {
-            //Update user into db
-            if ($All_Ok == true) {
-                $GoodID = $_SESSION['ID_user'];
-                try {
-                    $connection->query("UPDATE konto_logowanie SET UserLogin ='$nick' WHERE ID_Konta='$GoodID'");
-                    $_SESSION['UserLogin'] = $nick;
-                } catch (Exception $e) {
-                    echo '<span style="color:red;">Błąd aktualizacji! Przepraszamy za niedogodności i prosimy o aktualizację w innym terminie!</span>';
-                    echo '<br />Informacja developerska' . $e;
-                }
-            }
-            $connection->close();
-        }
-    } catch (Exception $e) {
-        echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejstrację w innym terminie!</span>';
-        echo '<br />Informacja developerska' . $e;
-    }
-}
-
 //Chcek button delete
 if (isset($_POST["resetbutton"])) {
     $All_Ok = true;
@@ -732,7 +633,7 @@ if (isset($_POST["resetbutton1"])) {
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-xl bg-dark navbar-dark justify-content-end fixed-top">
+    <!-- <nav class="navbar navbar-expand-xl bg-dark navbar-dark justify-content-end fixed-top">
         <a class="navbar-brand logo" href="#"><img src="./CSS/Logo.jpg" class="Logostr"></a>
         <button class="navbar-toggler ml-auto mr-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -784,7 +685,7 @@ if (isset($_POST["resetbutton1"])) {
                 ?>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
     <div class="main" style="font-family:Comic Sans MS, cursive, sans-serif;">
         <div class="container">
