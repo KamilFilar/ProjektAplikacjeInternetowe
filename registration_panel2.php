@@ -67,7 +67,7 @@ if (
     $PhonNumber = $_POST['PhonNumber'];
     if (strlen($PhonNumber) != 9) {
         $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Podaj poprawny 9-cyfrowy numer telefonu!";
+        $_SESSION['error_PhonNumber'] = "Podaj poprawny numer telefonu! Odpowiedni format to: XXXXXXXXX gdzie X to cyfra.";
     }
     if (!is_numeric($PhonNumber)) {
         $All_Ok = false;

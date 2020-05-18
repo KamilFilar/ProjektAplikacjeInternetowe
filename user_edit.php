@@ -73,6 +73,10 @@ if (!empty($_POST['Username'])) {
         $All_Ok = false;
         $_SESSION['error_Username'] = "Imię nie może zawierać cyfr!";
     }
+    if (strlen($UserName) < 2) {
+        $All_Ok = false;
+        $_SESSION['error_Username'] = "Podano zbyt krótkie imię!";
+    }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -103,7 +107,7 @@ if (!empty($_POST['Usersurname'])) {
     $All_Ok = true;
     $UsersurName = mb_strtolower($_POST['Usersurname']);
     $ArrsurName = str_split($UsersurName);
-    for ($i = 1; $i < count($ArrsurName); $i++) {
+    for ($i = 2; $i < count($ArrsurName); $i++) {
         if (($ArrsurName[$i - 2] == $ArrsurName[$i - 1]) && ($ArrsurName[$i - 1] == $ArrsurName[$i])) {
             $All_Ok = false;
             $_SESSION['error_Usersurname'] = "Niepoprawne nazwisko!";
@@ -119,6 +123,10 @@ if (!empty($_POST['Usersurname'])) {
     if (strpbrk($UsersurName, '1234567890')) {
         $All_Ok = false;
         $_SESSION['error_Usersurname'] = "Nazwisko nie może zawierać cyfr!";
+    }
+    if (strlen($UsersurName) < 2) {
+        $All_Ok = false;
+        $_SESSION['error_Usersurname'] = "Podano zbyt krótkie nazwisko!";
     }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -151,7 +159,22 @@ if (!empty($_POST['PhonNumber'])) {
     $PhonNumber = $_POST['PhonNumber'];
     if (strlen($PhonNumber) != 9) {
         $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Podaj poprawny dziewięcio cyfrowy numer telefonu!";
+        $_SESSION['error_PhonNumber'] = "Podaj poprawny numer telefonu! Odpowiedni format to: XXXXXXXXX gdzie X to cyfra.";
+    }
+    if (!is_numeric($PhonNumber)) {
+        $All_Ok = false;
+        $_SESSION['error_PhonNumber'] = "Numer telefonu może składać się tylko z cyfr! Odpowiedni format to: XXXXXXXXX gdzie X to cyfra.";
+    }
+    if (
+        $PhonNumber == "000000000" || $PhonNumber == "111111111" || $PhonNumber == "222222222" || $PhonNumber == "333333333" || $PhonNumber == "444444444"
+        || $PhonNumber == "555555555" || $PhonNumber == "666666666" || $PhonNumber == "777777777" || $PhonNumber == "888888888" || $PhonNumber == "999999999"
+    ) {
+        $All_Ok = false;
+        $_SESSION['error_PhonNumber'] = "Poadno nieprawidłowy numer telefonu!";
+    }
+    if (substr($PhonNumber, 0, 1) == 0) {
+        $All_Ok = false;
+        $_SESSION['error_PhonNumber'] = "Poadno nieprawidłowy numer telefonu!";
     }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
