@@ -633,7 +633,7 @@ if (isset($_POST["resetbutton1"])) {
 <body>
 
     <!-- Navbar -->
-    <!-- <nav class="navbar navbar-expand-xl bg-dark navbar-dark justify-content-end fixed-top">
+    <nav class="navbar navbar-expand-xl bg-dark navbar-dark justify-content-end fixed-top">
         <a class="navbar-brand logo" href="#"><img src="./CSS/Logo.jpg" class="Logostr"></a>
         <button class="navbar-toggler ml-auto mr-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -685,7 +685,7 @@ if (isset($_POST["resetbutton1"])) {
                 ?>
             </ul>
         </div>
-    </nav> -->
+    </nav>
 
     <div class="main" style="font-family:Comic Sans MS, cursive, sans-serif;">
         <div class="container">
