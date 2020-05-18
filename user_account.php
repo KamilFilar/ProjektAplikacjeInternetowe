@@ -125,13 +125,17 @@ if (!isset($_SESSION['logged'])) {
                   <p class="detail">Kod pocztowy:<span class="name"> <?php echo $_SESSION['Kod_Pocztowy']; ?></span></p>
                 </h3>
               </div>
-              <div class="col-12 py-2">
-                <h3>
-                  <p class="detail">Ulica:<span class="name"> <?php echo $_SESSION['Ulica']; ?></span></p>
-                </h3>
-              </div>
+
               <?php
-              if ($_SESSION['Nr_Domu'] == 0) {
+              if ($_SESSION['Ulica'] == "") {
+
+                echo '<div class="col-12 py-2"><h3>
+                <p class="detail">Ulica: <span class="name">---</span></p></h3></div>';
+              } else {
+                echo '<div class="col-12 py-2"><h3>
+                <p class="detail">Ulica: <span class="name">' . $_SESSION['Ulica'] . "</span><p></h3></div>";
+              }
+              if ($_SESSION['Nr_Domu'] == "") {
 
                 echo '<div class="col-12 py-2"><h3>
                 <p class="detail">Numer domu: <span class="name">---</span></p></h3></div>';
@@ -141,7 +145,7 @@ if (!isset($_SESSION['logged'])) {
                 echo '<div class="col-12 py-2"><h3>
                 <p class="detail">Numer domu: <span class="name">' . $_SESSION['Nr_Domu'] . "</span><p></h3></div>";
               }
-              if ($_SESSION['Nr_Lokalu'] != 0) {
+              if ($_SESSION['Nr_Lokalu'] != "") {
                 echo '<div class="col-12 py-2"><h3>
                 <p class="detail">Numer lokalu: <span class="name">' . $_SESSION['Nr_Lokalu'] . "</span></p></h3></div>";
               }

@@ -127,6 +127,7 @@ if (!empty($_POST['Usersurname'])) {
         $All_Ok = false;
         $_SESSION['error_Usersurname'] = "Podano za krótkie nazwisko!";
     }
+
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -162,7 +163,7 @@ if (!empty($_POST['PhonNumber'])) {
     }
     if (!is_numeric($PhonNumber)) {
         $All_Ok = false;
-        $_SESSION['error_PhonNumber'] = "Numer telefonu może składać się tylko z cyfr!";
+        $_SESSION['error_PhonNumber'] = "Numer telefonu może składać się tylko z cyfr! Poprawny format to: XXXXXXXXX";
     }
     if (
         $PhonNumber == "000000000" || $PhonNumber == "111111111" || $PhonNumber == "222222222" || $PhonNumber == "333333333" || $PhonNumber == "444444444"
@@ -247,16 +248,16 @@ if (!empty($_POST['email'])) {
                     $All_Ok = false;
                     $_SESSION['error_email'] = "Podany adres e-mail już istnieje!";
                 }
-                //Update user into db
-                if ($All_Ok == true) {
-                    $GoodID = $_SESSION['ID_user'];
-                    try {
-                        $connection->query("UPDATE konto SET Mail='$email' WHERE ID_Konta='$GoodID'");
-                        $_SESSION['Mail'] = $email;
-                    } catch (Exception $e) {
-                        echo '<span style="color:red;">Błąd aktualizacji! Przepraszamy za niedogodności i prosimy o aktualizację w innym terminie!</span>';
-                        echo '<br />Informacja developerska' . $e;
-                    }
+            }
+            //Update user into db
+            if ($All_Ok == true) {
+                $GoodID = $_SESSION['ID_user'];
+                try {
+                    $connection->query("UPDATE konto SET Mail='$email' WHERE ID_Konta='$GoodID'");
+                    $_SESSION['Mail'] = $email;
+                } catch (Exception $e) {
+                    echo '<span style="color:red;">Błąd aktualizacji! Przepraszamy za niedogodności i prosimy o aktualizację w innym terminie!</span>';
+                    echo '<br />Informacja developerska' . $e;
                 }
             }
             $connection->close();
@@ -491,6 +492,10 @@ if (!empty($_POST['NumberD'])) {
         $All_Ok = false;
         $_SESSION['error_NumberD'] = "Numer domu musi być większy od 0!";
     }
+    if ($_POST['NumberD'] == 0) {
+        $All_Ok = false;
+        $_SESSION['error_NumberD'] = "Numer domu nie może być zerem!";
+    }
     require_once "connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
@@ -553,6 +558,10 @@ if ((!empty($_POST['NumberL']))) {
     if ($NumberL < 0) {
         $All_Ok = false;
         $_SESSION['error_NumberL'] = "Numer lokalu musi być większy od zera!";
+    }
+    if ($NumberL == 0) {
+        $All_Ok = false;
+        $_SESSION['error_NumberL'] = "Numer lokalu nie może być zerem!";
     }
 
     require_once "connect.php";
@@ -632,9 +641,9 @@ if (!empty($_POST['login'])) {
 //Chcek button delete
 if (isset($_POST["resetbutton"])) {
     $All_Ok = true;
-    $NumberL = 0;
-    $NumberD = 0;
-    if ($NumberL != 0 && $NumberD != 0) {
+    $NumberL = "";
+    $NumberD = "";
+    if ($NumberL != "" && $NumberD != "") {
         $All_Ok = false;
         $_SESSION['error_delete'] = "Coś poszło nie tak!";
     }
@@ -652,6 +661,39 @@ if (isset($_POST["resetbutton"])) {
                     $connection->query("UPDATE adres SET Nr_Lokalu='$NumberL', Nr_Domu='$NumberD' WHERE ID_Adres='$GoodID'");
                     $_SESSION['Nr_Lokalu'] = $NumberL;
                     $_SESSION['Nr_Domu'] = $NumberD;
+                } catch (Exception $e) {
+                    echo '<span style="color:red;">Błąd aktualizacji! Przepraszamy za niedogodności i prosimy o aktualizację w innym terminie!</span>';
+                    echo '<br />Informacja developerska' . $e;
+                }
+            }
+            $connection->close();
+        }
+    } catch (Exception $e) {
+        echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejstrację w innym terminie!</span>';
+        echo '<br />Informacja developerska' . $e;
+    }
+}
+//Reset street
+if (isset($_POST["resetbutton1"])) {
+    $All_Ok = true;
+    $Userstreet = "";
+    if ($Userstreet != "") {
+        $All_Ok = false;
+        $_SESSION['error_delete'] = "Coś poszło nie tak!";
+    }
+    require_once "connect.php";
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    try {
+        $connection = new mysqli($host, $db_user, $db_password, $db_name);
+        if ($connection->connect_errno != 0) {
+            throw new Exception(mysqli_connect_errno());
+        } else {
+            //Update user into db
+            if ($All_Ok == true) {
+                $GoodID = $_SESSION['ID_ad'];
+                try {
+                    $connection->query("UPDATE adres SET Ulica='$Userstreet' WHERE ID_Adres='$GoodID'");
+                    $_SESSION['Ulica'] = $Userstreet;
                 } catch (Exception $e) {
                     echo '<span style="color:red;">Błąd aktualizacji! Przepraszamy za niedogodności i prosimy o aktualizację w innym terminie!</span>';
                     echo '<br />Informacja developerska' . $e;
@@ -840,9 +882,20 @@ if (isset($_POST["resetbutton"])) {
                             <div class="col-12 py-2 text-center">
                                 <div class="links"></div>
                             </div>
+                            <div class="col-12 py-2 text-center"><input type="submit" name="resetbutton1" value="Resetuj ulicę" /></div>
+                            <div class="col-12 py-2 text-center"><?php
+                                                                    if (isset($_SESSION['error_delete'])) {
+                                                                        echo '<div class="error">' . $_SESSION['error_delete'] . '</div>';
+                                                                        unset($_SESSION['error_delete']);
+                                                                    }
+                                                                    ?></div>
                             <div class="col-12 py-2 text-center">
                                 <p class="detail"><label for="location">Miejscowość:</label>
-                                    <input type="text" placeholder="<?php echo $_SESSION['Miejscowosc']; ?>" name="location" /></p>
+                                    <input type="text" placeholder="<?php if ($_SESSION['Miejscowosc'] == "") {
+                                                                        echo "";
+                                                                    } else {
+                                                                        echo $_SESSION['Miejscowosc'];
+                                                                    } ?>" name="location" /></p>
                             </div>
                             <div class="col-12 py-2 text-center"><?php
                                                                     if (isset($_SESSION['error_location'])) {

@@ -31,7 +31,7 @@ $result3->free_result();
 
 $AllOk = true;
 if (isset($_SESSION['logged'])) {
-  if ($_SESSION['Nr_Domu'] == 0) {
+  if ($_SESSION['Nr_Domu'] == "") {
     $AllOk = false;
     $_SESSION['ErrorD'] = "Przed dokonaniem zamówienia należy wprowadzić numer domu!";
   }
@@ -77,11 +77,11 @@ if (isset($_SESSION['logged'])) {
         // echo "idkonta: " . $ID_Konta . "</br>";
         $resultDostawcy = $con->query("SELECT * FROM dostawcy WHERE Koszt='$deliveryCost'");
         $row = $resultDostawcy->fetch_assoc();
-        $ID_Dostawcy = $row['ID_Dostawcy'];
+        $iddostawcy = $row['ID_Dostawcy'];
         $date = date('Y-m-d');
         // echo "iddostawcy: " . $ID_Dostawcy . "</br>";
         if ($con->query("INSERT INTO zamowienia (ID_Konta, ID_Dostawcy, FullCost, ActDate)
-        VALUE ('$ID_Konta','$ID_Dostawcy','$total','$date')")) {
+        VALUE ('$ID_Konta','$iddostawcy','$total','$date')")) {
           // echo "poprawne dodanie zamowienia</br>";
         } else {
           throw new Exception($con->error);
@@ -95,6 +95,58 @@ if (isset($_SESSION['logged'])) {
           $con->query("INSERT INTO zamowienia_produkty (id_zamowienia, id_produktu, ilosc)
           VALUE ('$idZamowienia','$productId','$quantity')");
         }
+
+        $zamowieniaSczegoly = $con->query("SELECT * FROM zamowienia_produkty WHERE id_zamowienia='$idZamowienia'");
+        //echo "<div class=\"row text-left justify-content-center\"><div class=\"col-9\"><p class=\"detail3\">Numer zamówienia:<b class=\"gutgut1\"> " . $idZamowienia . "</b></p></div></div>";
+        //echo "<div class=\"row text-center justify-content-center\"><div class=\"col-8 pl-4 text-left\"><p class=\"detail\" style=\"margin-bottom:0;\">Produkty:</p></div></div>";
+        $info = "";
+        while ($value2 = $zamowieniaSczegoly->fetch_assoc()) {
+
+          $idProduktu = $value2['id_produktu'];
+          $produkt = $con->query("SELECT * FROM produkty WHERE ID_Produktu='$idProduktu'");
+          $produktDane = $produkt->fetch_assoc();
+          $info = $info . "<p>" . $produktDane['Nazwa_produktu'] . " x " . (float) $value2['ilosc'] . " (szt.) / koszt: " . ((float) $produktDane["Cena"] * (float) $value2['ilosc']) . " PLN</p>";
+        }
+        $dostawca = $con->query("SELECT * FROM dostawcy WHERE ID_Dostawcy='$iddostawcy'");
+        $daneDostawcy = $dostawca->fetch_assoc();
+
+        $info = $info . "<p>Dostawca: <b>" . $daneDostawcy["Nazwa_Dostawcy"] . "</b> / koszt przesylki: <b>" . $daneDostawcy["Koszt"] . " PLN</b></p>";
+        $info = $info . "<p><b style=color:green;>Koszt: " . (float) $total . " PLN</b></p>";
+
+        require 'PHPMailerAutoload.php';
+
+        $mail = new PHPMailer;
+        $mail->CharSet = 'UTF-8';
+
+        // $mail->SMTPDebug = 4;                               // Enable verbose debug output
+
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'ezielarniaprojektaplikacje@gmail.com';                 // SMTP username
+        $mail->Password = 'projektaplikacje';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+
+        $mail->setFrom('ezielarniaprojektaplikacje@gmail.com', 'Zielarnia');
+        $mail->addAddress($_SESSION['Mail']);               // Name is optional
+        // $mail->addReplyTo('info@example.com', 'Information');
+
+        // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = 'Ezielarnia - Potwierdzenie zamówienia';
+        $mail->Body    = '<p style="text-algin:center;">Potwierdzenie zamówienia o numerze: <b style="color:green">' . $idZamowienia . '</b></p>
+        <p style="color: green;"><b>Lista produktów:</b></p><p>' . $info . '<br /> <b style="color: green";>Dziękujemy za wybranie naszego sklepu, zapraszamy ponownie!</b>';
+
+        // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        if (!$mail->send()) {
+          echo 'Message could not be sent.';
+          echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+
 
         unset($_SESSION["cart"]);
         echo "<script>window.location.replace(\"zamowienia.php\");</script>";

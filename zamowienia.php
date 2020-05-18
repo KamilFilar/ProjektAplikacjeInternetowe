@@ -106,6 +106,7 @@ if (!isset($_SESSION['logged'])) {
                                     // output data of each row
                                     while ($value = $zamowienia->fetch_assoc()) {
                                         $idZamowienia = $value['ID_Zamowienia'];
+                                        $iddostawcy = $value['ID_Dostawcy'];
                                         $date = $value['ActDate'];
                                         $zamowieniaSczegoly = $con->query("SELECT * FROM zamowienia_produkty WHERE id_zamowienia='$idZamowienia'");
                                         echo "<div class=\"row text-left justify-content-center\"><div class=\"col-9\"><p class=\"detail3\">Numer zamówienia:<b class=\"gutgut1\"> " . $idZamowienia . "</b></p></div></div>";
@@ -116,14 +117,23 @@ if (!isset($_SESSION['logged'])) {
                                             $idProduktu = $value2['id_produktu'];
                                             $produkt = $con->query("SELECT * FROM produkty WHERE ID_Produktu='$idProduktu'");
                                             $produktDane = $produkt->fetch_assoc();
-                                            echo "<div class=\"row text-center justify-content-center\"><div class=\"col-8 pl-5 text-left\">" . $produktDane['Nazwa_produktu'] . " x " . $value2['ilosc'] . "</div></div>";
+                                            echo "<div class=\"row text-center justify-content-center\"><div class=\"col-8 pl-5 text-left\">" . $produktDane['Nazwa_produktu'] . " <b class=\"gutgut2\">x </b>" . $value2['ilosc'] . " (szt.) / <b class=\"greencolor\">koszt: <b class=\"gutgut2\">" . $produktDane["Cena"] * $value2['ilosc'] . "</b> PLN</b></div></div>";
                                         }
+                                        echo "<br />";
+                                        $dostawca = $con->query("SELECT * FROM dostawcy WHERE ID_Dostawcy='$iddostawcy'");
+                                        $daneDostawcy = $dostawca->fetch_assoc();
+                                        echo "<div class=\"row text-center justify-content-center my-1\">
+                                        <div class=\"col-8\">
+                                            <div class=\"row\"><div class=\"col-12 pl-4 my-0 py-0 text-left\"><p class=\"detail\" style='margin-bottom:0;'>Przewoźnik: <b class=\"gutgut2\">" . $daneDostawcy["Nazwa_Dostawcy"] . " </b></p></div></div><div class=\"row\"><div class='col-12 pl-4 mb-2 text-left'><p class=\"detail\">Koszt dostawy: <b class=\"gutgut2\">" . $daneDostawcy["Koszt"] . "</b> PLN</p></div> </div>
+                                            </div>
+                                        </div>";
+
                                         $total = number_format($value['FullCost'], 2);
                                         echo "<div class=\"row text-center justify-content-center my-1\">
                                                     <div class=\"col-8\">
                                                         <div class=\"row\">
-                                                            <div class=\"col-6 pl-4 text-left\"><p class=\"detail\">Całkowity koszt: <b class=\"gutgut2\">" . $total . " </b>PLN</p></div>
-                                                            <div class=\"col-6 text-left \"><p class=\"detail\"> Data zamówienia: <b class=\"gutgut2\">" . $date . "</b></p></div>
+                                                            <div class=\"col-6 pl-4 text-left\"><p class=\"detail3\">Całkowity koszt: <b class=\"gutgut1\">" . $total . " </b>PLN</p></div>
+                                                            <div class=\"col-6 text-left \"><p class=\"detail3\"> Data zamówienia: <b class=\"gutgut1\">" . $date . "</b></p></div>
                                                         </div>
                                                     </div>
                                                 </div>";

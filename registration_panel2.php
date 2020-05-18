@@ -5,7 +5,7 @@ if (
     !empty($_POST['login']) && !empty($_POST['userpassword1']) && !empty($_POST['userpassword2']) &&
     !empty($_POST['regulamin']) && !empty($_POST['g-recaptcha-response']) && !empty($_POST['email'] &&
         !empty($_POST['Username']) && !empty($_POST['Usersurname']) && !empty($_POST['PhonNumber']) &&
-        !empty($_POST['UserCode']) && !empty($_POST['location']) && !empty($_POST['street']) &&
+        !empty($_POST['UserCode']) && !empty($_POST['location']) &&
         !empty($_POST['NumberD']))
 ) {
 
@@ -156,27 +156,30 @@ if (
         $_SESSION['error_location'] = "Nazwa miejscowości nie może zawierać cyfr!";
     }
     //Check street 
-    $Userstreet = mb_strtolower($_POST['street']);
-    if (strlen($Userstreet) < 4) {
-        $All_Ok = false;
-        $_SESSION['error_street'] = "Podano za krótką nazwę ulicy!";
-    }
-    $Arrstreet = str_split($Userstreet);
-    for ($i = 2; $i < count($Arrstreet); $i++) {
-        if (($Arrstreet[$i - 2] == $Arrstreet[$i - 1]) && ($Arrstreet[$i - 1] == $Arrstreet[$i])) {
+    if (!empty($_POST['street'])) {
+        $Userstreet = mb_strtolower($_POST['street']);
+        if (strlen($Userstreet) < 4) {
             $All_Ok = false;
-            $_SESSION['error_street'] = "Niepoprawna nazwa ulicy!";
+            $_SESSION['error_street'] = "Podano za krótką nazwę ulicy!";
+        }
+        $Arrstreet = str_split($Userstreet);
+        for ($i = 2; $i < count($Arrstreet); $i++) {
+            if (($Arrstreet[$i - 2] == $Arrstreet[$i - 1]) && ($Arrstreet[$i - 1] == $Arrstreet[$i])) {
+                $All_Ok = false;
+                $_SESSION['error_street'] = "Niepoprawna nazwa ulicy!";
+            }
+        }
+        $street = ucfirst($Userstreet);
+        if (!(preg_match('/^[a-ząćęłńóśźż]+$/ui', $street))) {
+            $All_Ok = false;
+            $_SESSION['error_street'] = "Podano błędną nazwę ulicy!";
+        }
+        if (strpbrk($Userstreet, '1234567890')) {
+            $All_Ok = false;
+            $_SESSION['error_street'] = "Nazwa ulicy nie może zawierać cyfr!";
         }
     }
-    $street = ucfirst($Userstreet);
-    if (!(preg_match('/^[a-ząćęłńóśźż]+$/ui', $street))) {
-        $All_Ok = false;
-        $_SESSION['error_street'] = "Podano błędną nazwę ulicy!";
-    }
-    if (strpbrk($Userstreet, '1234567890')) {
-        $All_Ok = false;
-        $_SESSION['error_street'] = "Nazwa ulicy nie może zawierać cyfr!";
-    }
+
     //Check Postcode
 
     $UserCode = $_POST["UserCode"];
@@ -569,7 +572,7 @@ if (
                                 ?></div>
                             <div class="col-12 py-2">
                                 <!-- Ulica -->
-                                <input type="text" placeholder="Ulica (pole wymagane)" name="street" value="<?php echo isset($_POST["street"]) ? $_POST["street"] : ''; ?>" />
+                                <input type="text" placeholder="Ulica" name="street" value="<?php echo isset($_POST["street"]) ? $_POST["street"] : ''; ?>" />
                                 <?php
                                 if (isset($_SESSION['error_street'])) {
                                     echo '<div class="error">' . $_SESSION['error_street'] . '</div>';
